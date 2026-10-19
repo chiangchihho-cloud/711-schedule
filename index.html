@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>江志和 - 7-11 門市每週精緻排班表 Dashboard</title>
+    <style>
+        :root {
+            --711-orange: #FF6600;
+            --711-green: #008000;
+            --711-red: #E60012;
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-secondary: #666666;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border-top: 6px solid var(--711-orange);
+        }
+
+        /* Header 區域：融合 7-11 經典招牌條紋與 Logo */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid #EEE;
+            background: linear-gradient(135deg, #FFF9F5 0%, #FFFFFF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .store-info h1 {
+            margin: 0 0 6px 0;
+            font-size: 24px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .store-info p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* 經典 7-11 招牌標誌 */
+        .logo-711-box {
+            display: flex;
+            align-items: center;
+            background: #FFFFFF;
+            border: 3px solid var(--711-orange);
+            border-radius: 10px;
+            padding: 6px 12px;
+            box-shadow: 0 3px 10px rgba(255, 102, 0, 0.25);
+        }
+        .logo-7 {
+            color: var(--711-red);
+            font-size: 28px;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+        .logo-eleven {
+            display: flex;
+            flex-direction: row;
+            font-size: 11px;
+            color: var(--711-green);
+            font-weight: 900;
+            margin-left: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* 統計摘要卡片區 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 24px 32px;
+            background: #FAFAFA;
+            border-bottom: 1px solid #EEE;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 4px solid var(--711-orange);
+        }
+
+        .stat-card:nth-child(2) { border-left-color: var(--711-green); }
+        .stat-card:nth-child(3) { border-left-color: var(--711-red); }
+
+        .stat-title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        /* 每週精緻周表區 */
+        .calendar-section {
+            padding: 32px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+        }
+
+        .day-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: all 0.2s ease;
+            position: relative;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .day-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 102, 0, 0.12);
+            border-color: var(--711-orange);
+        }
+
+        .day-header {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 8px;
+        }
+
+        .day-date {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 6px 0;
+        }
+
+        .shift-badge {
+            display: inline-block;
+            padding: 8px 6px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: auto;
+            letter-spacing: 0.5px;
+        }
+
+        .shift-work {
+            background-color: #FFF2E8;
+            color: var(--711-orange);
+            border: 1px solid #FED7D7;
+        }
+
+        /* 休假樣式：紅字與紅色警示框 */
+        .shift-off {
+            background-color: #FFF5F5;
+            color: var(--711-red);
+            border: 1px solid #FEB2B2;
+            font-weight: 900;
+        }
+
+        .footer-note {
+            padding: 16px 32px;
+            background: #F8F9FA;
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: right;
+            border-top: 1px solid #EEE;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- 頂部資訊與 7-11 經典標誌 -->
+        <div class="header">
+            <div class="store-info">
+                <h1>
+                    <span>鑫寧門市員工輪班表 (週表)</span>
+                    <div class="logo-711-box" title="7-ELEVEN">
+                        <span class="logo-7">7</span>
+                        <div class="logo-eleven">ELEVEN</div>
+                    </div>
+                </h1>
+                <p>排班期間：10月19日至 10月25日 ｜ 員工姓名：<strong>江志和</strong></p>
+            </div>
+        </div>
+
+        <!-- 數據摘要 -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">本週總出勤天數</div>
+                <div class="stat-value">5 天</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">本週總休假天數</div>
+                <div class="stat-value" style="color: var(--711-red);">2 天（例休、排休）</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">主要排班時段</div>
+                <div class="stat-value">16:00 - 24:00</div>
+            </div>
+        </div>
+
+        <!-- 每週精緻周表內容 -->
+        <div class="calendar-section">
+            <div class="section-title">
+                <span>🗓️ 江志和本週精緻排班周表</span>
+            </div>
+            <div class="calendar-grid">
+                <!-- 星期一 -->
+                <div class="day-card">
+                    <div class="day-header">星期一</div>
+                    <div class="day-date">10/19</div>
+                    <div class="shift-badge shift-work">16 - 24</div>
+                </div>
+                <!-- 星期二 -->
+                <div class="day-card">
+                    <div class="day-header">星期二</div>
+                    <div class="day-date">10/20</div>
+                    <div class="shift-badge shift-work">16 - 24</div>
+                </div>
+                <!-- 星期三 (例休) -->
+                <div class="day-card">
+                    <div class="day-header">星期三</div>
+                    <div class="day-date">10/21</div>
+                    <div class="shift-badge shift-off">例休 (休)</div>
+                </div>
+                <!-- 星期四 (排休) -->
+                <div class="day-card">
+                    <div class="day-header">星期四</div>
+                    <div class="day-date">10/22</div>
+                    <div class="shift-badge shift-off">排休 (休)</div>
+                </div>
+                <!-- 星期五 -->
+                <div class="day-card">
+                    <div class="day-header">星期五</div>
+                    <div class="day-date">10/23</div>
+                    <div class="shift-badge shift-work">16 - 24</div>
+                </div>
+                <!-- 星期六 -->
+                <div class="day-card">
+                    <div class="day-header">星期六</div>
+                    <div class="day-date">10/24</div>
+                    <div class="shift-badge shift-work">16 - 24</div>
+                </div>
+                <!-- 星期日 -->
+                <div class="day-card">
+                    <div class="day-header">星期日</div>
+                    <div class="day-date">10/25</div>
+                    <div class="shift-badge shift-work">16 - 24</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 頁尾備註 -->
+        <div class="footer-note">
+            ※ 每週五公佈下週排班表 ｜ 若有變動者，請事先向店長反應，切勿私自調動！
+        </div>
+    </div>
+
+</body>
+</html>
