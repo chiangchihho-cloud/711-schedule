@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>江志和 - 7-11 鑫寧門市每週精緻排班表 Dashboard</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sevenOrange: '#FF6600',
+                        sevenGreen: '#008542',
+                        sevenRed: '#E60012',
+                        sevenDark: '#1A202C'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans TC', 'Inter', sans-serif;
+            background-color: #F4F5F7;
+        }
+        /* 經典 7-11 標誌中的斜紅勾造型微調 */
+        .seven-logo-box {
+            display: inline-flex;
+            align-items: center;
+            background: #FFFFFF;
+            border: 3px solid #FF6600;
+            border-radius: 10px;
+            padding: 6px 14px;
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        
+        <!-- 7-11 經典招牌視覺 (橘、綠、紅條紋 + 招牌 LOGO) -->
+        <div class="relative bg-white border-b border-gray-200">
+            <!-- 招牌三色橫條紋 -->
+            <div class="h-4 w-full bg-sevenOrange"></div>
+            <div class="h-3 w-full bg-sevenGreen"></div>
+            <div class="h-3 w-full bg-sevenRed"></div>
+
+            <div class="p-6 sm:p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- 標誌與店鋪資訊 -->
+                <div class="flex items-center gap-5">
+                    <!-- 正宗 7-ELEVEN 標誌造型 -->
+                    <div class="seven-logo-box">
+                        <span class="text-sevenRed font-black text-4xl italic tracking-tighter relative">7</span>
+                        <div class="flex flex-col text-sevenGreen font-black text-[10px] leading-[0.82] tracking-tighter ml-1 uppercase">
+                            <span>E</span>
+                            <span>L</span>
+                            <span>E</span>
+                            <span>V</span>
+                            <span>E</span>
+                            <span>N</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inline-block bg-orange-50 text-sevenOrange text-xs font-extrabold px-3 py-1 rounded-full mb-1 border border-orange-200">
+                            鑫寧門市 • 員工輪班表 Dashboard
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">
+                            江志和 <span class="text-base font-semibold text-gray-500 ml-1">每週精緻排班表</span>
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- 排班期間小卡 -->
+                <div class="bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 text-center md:text-right shadow-inner min-w-[220px]">
+                    <div class="text-xs text-gray-500 font-bold uppercase tracking-wider">排班期間週次</div>
+                    <div class="text-base sm:text-lg font-black text-gray-800 mt-0.5">10月12日 — 10月18日</div>
+                    <div class="text-xs text-sevenOrange font-bold mt-1">✨ 準時出勤・熱情服務</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 統計與摘要卡片 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 sm:px-8 bg-gray-50 border-b border-gray-200">
+            <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-sevenOrange flex items-center justify-between">
+                <div>
+                    <div class="text-xs font-bold text-gray-500">本週總出勤天數</div>
+                    <div class="text-2xl font-black text-gray-800 mt-1">5 <span class="text-sm font-normal text-gray-500">天</span></div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-sevenOrange font-bold text-lg">💼</div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-sevenRed flex items-center justify-between">
+                <div>
+                    <div class="text-xs font-bold text-gray-500">本週總休假天數</div>
+                    <div class="text-2xl font-black text-sevenRed mt-1">2 <span class="text-sm font-bold text-sevenRed">天（例休、排休）</span></div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-sevenRed font-bold text-lg">🌴</div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-sevenGreen flex items-center justify-between">
+                <div>
+                    <div class="text-xs font-bold text-gray-500">主要排班時段</div>
+                    <div class="text-xl font-black text-gray-800 mt-1">16:00 - 24:00</div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-sevenGreen font-bold text-lg">⏰</div>
+            </div>
+        </div>
+
+        <!-- 每週精緻周表內容 (7天卡片) -->
+        <div class="p-6 sm:p-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-sevenOrange inline-block"></span>
+                    10/12 至 10/18 每週詳細班別
+                </h2>
+                <span class="text-xs font-medium text-gray-400">鑫寧門市輪班表</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
+                <!-- 星期一 (10/12) -->
+                <div class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-bold text-gray-400 group-hover:text-sevenOrange transition">星期一</div>
+                        <div class="text-lg font-black text-gray-800 mt-1">10/12</div>
+                    </div>
+                    <div class="my-3 py-2.5 bg-amber-50 border border-amber-200 rounded-lg">
+                        <div class="text-xs text-amber-800 font-bold">晚班</div>
+                        <div class="text-xs font-black text-sevenOrange mt-0.5">16:00 - 24:00</div>
+                    </div>
+                    <div class="text-[11px] text-gray-500 font-semibold">上班</div>
+                </div>
+
+                <!-- 星期二 (10/13) -->
+                <div class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-bold text-gray-400 group-hover:text-sevenOrange transition">星期二</div>
+                        <div class="text-lg font-black text-gray-800 mt-1">10/13</div>
+                    </div>
+                    <div class="my-3 py-2.5 bg-amber-50 border border-amber-200 rounded-lg">
+                        <div class="text-xs text-amber-800 font-bold">晚班</div>
+                        <div class="text-xs font-black text-sevenOrange mt-0.5">16:00 - 24:00</div>
+                    </div>
+                    <div class="text-[11px] text-gray-500 font-semibold">上班</div>
+                </div>
+
+                <!-- 星期三 (10/14) - 例休 (醒目紅字與柔和紅底標示) -->
+                <div class="bg-red-50/70 border-2 border-red-200 rounded-xl p-4 text-center hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-bold text-sevenRed">星期三</div>
+                        <div class="text-lg font-black text-sevenRed mt-1">10/14</div>
+                    </div>
+                    <div class="my-3 py-2.5 bg-white border border-red-300 rounded-lg shadow-sm">
+                        <div class="text-xs text-sevenRed font-black">例休</div>
+                        <div class="text-sm font-bold text-sevenRed mt-0.5">(休)</div>
+                    </div>
+                    <div class="text-[11px] text-sevenRed font-bold">休假日</div>
+                </div>
+
+                <!-- 星期四 (10/15) -->
+                <div class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-bold text-gray-400 group-hover:text-sevenOrange transition">星期四</div>
+                        <div class="text-lg font-black text-gray-800 mt-1">10/15</div>
+                    </div>
+                    <div class="my-3 py-2.5 bg-amber-50 border border-amber-200 rounded-lg">
+                        <div class="text-xs text-amber-800 font-bold">晚班</div>
+                        <div class="text-xs font-black text-sevenOrange mt-0.5">16:00 - 24:00</div>
+                    </div>
+                    <div class="text-[11px] text-gray-500 font-semibold">上班</div>
+                </div>
+
+                <!-- 星期五 (10/16) - 排休 (醒目紅字與柔和紅底標示) -->
+                <div class="bg-red-50/70 border-2 border-red-200 rounded-xl p-4 text-center hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-bold text-sevenRed">星期五</div>
+                        <div class="text-lg font-black text-sevenRed mt-1">10/16</div>
+                    </div>
+                    <div class="my-3 py-2.5 bg-white border border-red-300 rounded-lg shadow-sm">
+                        <div class="text-xs text-sevenRed font-black">排休</div>
+                        <div class="text-sm font-bold text-sevenRed mt-0.5">(休)</div>
+                    </div>
+                    <div class="text-[11px] text-sevenRed font-bold">休假日</div>
+                </div>
+
+                <!-- 星期六 (10/17) -->
+                <div class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-bold text-gray-400 group-hover:text-sevenOrange transition">星期六</div>
+                        <div class="text-lg font-black text-gray-800 mt-1">10/17</div>
+                    </div>
+                    <div class="my-3 py-2.5 bg-amber-50 border border-amber-200 rounded-lg">
+                        <div class="text-xs text-amber-800 font-bold">晚班</div>
+                        <div class="text-xs font-black text-sevenOrange mt-0.5">16:00 - 24:00</div>
+                    </div>
+                    <div class="text-[11px] text-gray-500 font-semibold">上班</div>
+                </div>
+
+                <!-- 星期日 (10/18) -->
+                <div class="bg-white border border-gray-200 rounded-xl p-4 text-center hover:shadow-md transition duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="text-xs font-bold text-gray-400 group-hover:text-sevenOrange transition">星期日</div>
+                        <div class="text-lg font-black text-gray-800 mt-1">10/18</div>
+                    </div>
+                    <div class="my-3 py-2.5 bg-amber-50 border border-amber-200 rounded-lg">
+                        <div class="text-xs text-amber-800 font-bold">晚班</div>
+                        <div class="text-xs font-black text-sevenOrange mt-0.5">16:00 - 24:00</div>
+                    </div>
+                    <div class="text-[11px] text-gray-500 font-semibold">上班</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部備註區 -->
+        <div class="bg-gray-50 border-t border-gray-200 px-6 sm:px-8 py-4 text-xs text-gray-600 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="font-semibold text-gray-700">※ 每週五公佈下週排班表 ｜ 若有變動者，請事先向店長反應，切勿私自調動！</div>
+            <div class="font-bold text-gray-900">統一超商股份有限公司 • 鑫寧門市</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
