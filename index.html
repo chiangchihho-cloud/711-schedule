@@ -194,12 +194,25 @@
             border: 1px solid #FED7D7;
         }
 
-        /* 休假樣式：紅字與紅色警示框 */
+        /* 🔴 升級版顯眼休假樣式：紅底白字／亮紅警示與粗框 */
+        .day-card.card-off {
+            background: linear-gradient(135deg, #FFF5F5 0%, #FFE3E3 100%);
+            border: 2px solid var(--711-red);
+            box-shadow: 0 4px 12px rgba(230, 0, 18, 0.15);
+        }
+
+        .day-card.card-off:hover {
+            box-shadow: 0 8px 24px rgba(230, 0, 18, 0.25);
+            border-color: var(--711-red);
+        }
+
         .shift-off {
-            background-color: #FFF5F5;
-            color: var(--711-red);
-            border: 1px solid #FEB2B2;
+            background-color: var(--711-red);
+            color: #FFFFFF;
+            border: 1px solid #C5000F;
             font-weight: 900;
+            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(230, 0, 18, 0.3);
         }
 
         .footer-note {
@@ -273,16 +286,16 @@
                     <div class="shift-badge shift-work">16 - 24</div>
                 </div>
                 <!-- 星期三 (例休) -->
-                <div class="day-card">
-                    <div class="day-header">星期三</div>
-                    <div class="day-date">10/21</div>
-                    <div class="shift-badge shift-off">例休 (休)</div>
+                <div class="day-card card-off">
+                    <div class="day-header" style="color: var(--711-red);">星期三</div>
+                    <div class="day-date" style="color: var(--711-red);">10/21</div>
+                    <div class="shift-badge shift-off">☕ 例休 (休)</div>
                 </div>
                 <!-- 星期四 (排休) -->
-                <div class="day-card">
-                    <div class="day-header">星期四</div>
-                    <div class="day-date">10/22</div>
-                    <div class="shift-badge shift-off">排休 (休)</div>
+                <div class="day-card card-off">
+                    <div class="day-header" style="color: var(--711-red);">星期四</div>
+                    <div class="day-date" style="color: var(--711-red);">10/22</div>
+                    <div class="shift-badge shift-off">🌴 排休 (休)</div>
                 </div>
                 <!-- 星期五 -->
                 <div class="day-card">
